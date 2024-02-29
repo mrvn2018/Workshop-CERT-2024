@@ -1,5 +1,16 @@
 # Workshop-CERT-2024
-Este repositorio contiene un conjunto de Scripts para Emular ataques avanzados operados por Humano.
+Que tal Hunter,
+
+Bienvenidos a este Workshop de nuestra Cumbre 2024.
+
+Este repositorio contiene un conjunto de Scripts para Emular ataques avanzados operados por Humano. Además pueden encontrar todos los comandos en un solo archivo y un archivo más con los filtros para hacer hunting en Elastic Cloud.
+
+Espero lo disfrute.
+
+Marvin Amador
+Threat Hunter
+
+---
 
 <center>
 
