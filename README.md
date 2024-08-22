@@ -1,4 +1,4 @@
-# Workshop-CERT-2024
+# Workshop-Threat-Hunting
 Que tal Hunter,
 
 Bienvenidos a este Workshop creado para Threat Hunters.
